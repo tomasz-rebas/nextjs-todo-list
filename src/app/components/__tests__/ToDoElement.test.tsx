@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ToDoElement } from "../ToDoElement";
 
@@ -49,5 +49,9 @@ describe("ToDoElement", () => {
     const updatedState = callback([toDo]);
 
     expect(updatedState).toEqual([{ ...toDo, completed: true }]);
+
+    waitFor(() => {
+      expect(screen.getByRole("checkbox")).toBeChecked();
+    });
   });
 });
