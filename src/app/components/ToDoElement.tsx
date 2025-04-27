@@ -19,7 +19,7 @@ export const ToDoElement = memo(({ toDo, setToDos }: Props) => {
 
   return (
     <div className="py-2">
-      <label className="flex gap-2" htmlFor={`todo_${id}`}>
+      <label className="flex gap-2 cursor-pointer" htmlFor={`todo_${id}`}>
         <input
           className="w-5 h-5 mt-1 shrink-0"
           type="checkbox"
@@ -28,7 +28,13 @@ export const ToDoElement = memo(({ toDo, setToDos }: Props) => {
           checked={completed}
           onChange={handleChange}
         />
-        <span className="text-[1.2em]">{title}</span>
+        <span
+          className={`text-[1.2em] ${
+            completed ? "line-through text-gray-400" : ""
+          }`}
+        >
+          {title}
+        </span>
       </label>
     </div>
   );
