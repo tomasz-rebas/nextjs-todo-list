@@ -28,7 +28,7 @@ export const ToDoList = ({ initialData, error }: Props) => {
     <>
       <Filtering filter={filter} setFilter={setFilter} />
       <div className="flex flex-col items-start pb-12">
-        {filteredTodos?.map((toDo) => (
+        {filteredTodos.map((toDo) => (
           <ToDoElement key={toDo.id} toDo={toDo} setToDos={setToDos} />
         ))}
       </div>
