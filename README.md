@@ -1,21 +1,7 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Projekt utworzono za pomocą [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+### Uruchomienie
 
-First, run the development server:
+Uruchom serwer deweloperski za pomocą `npm run dev` i wejdź na stronę [http://localhost:3000](http://localhost:3000) aby zobaczyć aplikację. Można wprowadzać zmiany w kodzie, strony zaaktualizują się automatycznie.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Testy można uruchomić za pomocą komendy `npm test`.
