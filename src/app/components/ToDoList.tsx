@@ -21,7 +21,7 @@ export const ToDoList = ({ initialData, error }: Props) => {
   });
 
   if (error) {
-    return <div className="text-red-800 font-bold">{error}</div>;
+    return <p className="text-red-800 font-bold">{error}</p>;
   }
 
   return (
