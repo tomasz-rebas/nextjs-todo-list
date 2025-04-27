@@ -1,64 +1,25 @@
-"use client";
+import { fetchData } from "./lib/fetchData";
+import { ToDoList } from "./components/ToDoList";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { ToDo } from "./types";
 
-import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Filter, ToDo } from "./types";
-import { ToDoElement } from "./components/ToDoElement";
-import { Filtering } from "./components/Filtering";
+export default async function Home() {
+  const queryClient = new QueryClient();
 
-const API_URL = "https://jsonplaceholder.typicode.com/todos";
-
-const fetchData = async (): Promise<ToDo[]> => {
-  const response = await fetch(API_URL);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch");
-  }
-
-  const data: ToDo[] = await response.json();
-
-  return data.map(({ userId, ...rest }) => rest);
-};
-
-export default function Home() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["data"],
+  await queryClient.prefetchQuery({
+    queryKey: ["toDos"],
     queryFn: fetchData,
   });
 
-  const [toDos, setToDos] = useState<ToDo[]>([]);
-  const [filter, setFilter] = useState<Filter>("ALL");
-
-  useEffect(() => {
-    if (data) {
-      setToDos(data);
-    }
-  }, [data]);
-
-  const filteredTodos = toDos.filter((element) => {
-    if (filter === "COMPLETED") return element.completed;
-    if (filter === "UNFINISHED") return !element.completed;
-    return true;
-  });
-
-  if (error) {
-    return (
-      <div className="text-red-800 font-bold">Failed to fetch the data.</div>
-    );
-  }
-
-  if (isLoading) {
-    return <div>Loading data...</div>;
-  }
+  const initialData = queryClient.getQueryData<ToDo[]>(["toDos"]);
 
   return (
-    <>
-      <Filtering filter={filter} setFilter={setFilter} />
-      <div className="flex flex-col items-start pb-12">
-        {filteredTodos?.map((toDo) => (
-          <ToDoElement key={toDo.id} toDo={toDo} setToDos={setToDos} />
-        ))}
-      </div>
-    </>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ToDoList initialData={initialData} />
+    </HydrationBoundary>
   );
 }
