@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { ToDo } from "./types";
 import { ToDoElement } from "./components/ToDoElement";
+import { useEffect, useState } from "react";
 
 const API_URL = "https://jsonplaceholder.typicode.com/todos";
 
@@ -24,12 +25,20 @@ export default function Home() {
     queryFn: fetchData,
   });
 
+  const [toDos, setToDos] = useState<ToDo[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      setToDos(data.slice(190));
+    }
+  }, [data]);
+
   return (
     <div>
       <h1 className="text-4xl text-center my-8">ToDo List</h1>
       <div className="flex flex-col items-center">
-        {data?.map((toDo) => (
-          <ToDoElement key={toDo.id} toDo={toDo} />
+        {toDos?.map((toDo) => (
+          <ToDoElement key={toDo.id} toDo={toDo} setToDos={setToDos} />
         ))}
       </div>
     </div>
