@@ -8,20 +8,20 @@ interface Props {
 
 export const Filtering = ({ filter, setFilter }: Props) => {
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const newFilter = e.target.value.toUpperCase() as Filter;
-    setFilter(newFilter);
+    setFilter(e.target.value as Filter);
   };
 
   return (
     <div className="flex justify-end mb-4">
       <select
         className="border rounded px-3 py-2 w-full sm:w-auto"
-        defaultValue={filter}
+        value={filter}
         onChange={handleChange}
+        data-testid="filtering-select"
       >
-        <option value="all">All</option>
-        <option value="completed">Completed</option>
-        <option value="unfinished">Unfinished</option>
+        <option value="All">All</option>
+        <option value="Completed">Completed</option>
+        <option value="Unfinished">Unfinished</option>
       </select>
     </div>
   );

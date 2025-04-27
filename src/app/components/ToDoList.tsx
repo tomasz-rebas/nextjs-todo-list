@@ -20,7 +20,7 @@ export const ToDoList = ({ initialData }: Props) => {
   });
 
   const [toDos, setToDos] = useState<ToDo[]>([]);
-  const [filter, setFilter] = useState<Filter>("ALL");
+  const [filter, setFilter] = useState<Filter>("All");
 
   useEffect(() => {
     if (data) {
@@ -29,8 +29,8 @@ export const ToDoList = ({ initialData }: Props) => {
   }, [data]);
 
   const filteredTodos = toDos.filter((element) => {
-    if (filter === "COMPLETED") return element.completed;
-    if (filter === "UNFINISHED") return !element.completed;
+    if (filter === "Completed") return element.completed;
+    if (filter === "Unfinished") return !element.completed;
     return true;
   });
 

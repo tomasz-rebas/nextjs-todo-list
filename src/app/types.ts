@@ -5,4 +5,4 @@ export interface ToDo {
   userId?: number;
 }
 
-export type Filter = "ALL" | "COMPLETED" | "UNFINISHED";
+export type Filter = "All" | "Completed" | "Unfinished";
