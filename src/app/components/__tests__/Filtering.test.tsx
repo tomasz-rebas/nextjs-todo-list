@@ -15,6 +15,15 @@ describe("Filtering", () => {
     expect(option.selected).toBe(true);
   });
 
+  it("displays the correct number of options", () => {
+    const mockSetFilter = jest.fn();
+    const initialFilter = "All";
+
+    render(<Filtering filter={initialFilter} setFilter={mockSetFilter} />);
+
+    expect(screen.getAllByRole("option").length).toBe(3);
+  });
+
   it("calls setFilter when the filter changes", () => {
     const mockSetFilter = jest.fn();
     const initialFilter = "All";
