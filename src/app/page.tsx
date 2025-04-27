@@ -1,13 +1,8 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-
-interface ToDo {
-  id: number;
-  title: string;
-  completed: boolean;
-  userId?: number;
-}
+import { ToDo } from "./types";
+import { ToDoElement } from "./components/ToDoElement";
 
 const API_URL = "https://jsonplaceholder.typicode.com/todos";
 
@@ -32,6 +27,11 @@ export default function Home() {
   return (
     <div>
       <h1 className="text-4xl text-center my-8">ToDo List</h1>
+      <div className="flex flex-col items-center">
+        {data?.map((toDo) => (
+          <ToDoElement key={toDo.id} toDo={toDo} />
+        ))}
+      </div>
     </div>
   );
 }
