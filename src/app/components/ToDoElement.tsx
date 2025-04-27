@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, memo, SetStateAction } from "react";
 import { ToDo } from "../types";
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   setToDos: Dispatch<SetStateAction<ToDo[]>>;
 }
 
-export const ToDoElement = ({ toDo, setToDos }: Props) => {
+export const ToDoElement = memo(({ toDo, setToDos }: Props) => {
   const { id, completed, title } = toDo;
 
   const handleChange = (_: ChangeEvent) => {
@@ -32,4 +32,4 @@ export const ToDoElement = ({ toDo, setToDos }: Props) => {
       </label>
     </div>
   );
-};
+});
