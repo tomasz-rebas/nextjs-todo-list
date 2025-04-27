@@ -24,6 +24,10 @@ export const ToDoList = ({ initialData, error }: Props) => {
     return <p className="text-red-800 font-bold">{error}</p>;
   }
 
+  if (initialData.length === 0 && !error) {
+    return <p>No tasks available.</p>;
+  }
+
   return (
     <>
       <Filtering filter={filter} setFilter={setFilter} />

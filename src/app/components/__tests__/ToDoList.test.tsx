@@ -52,4 +52,10 @@ describe("ToDoList", () => {
 
     expect(screen.getByText("Failed to fetch the data.")).toBeInTheDocument();
   });
+
+  it("shows message when no tasks available (empty array)", () => {
+    render(<ToDoList initialData={[]} error={null} />);
+
+    expect(screen.getByText("No tasks available.")).toBeInTheDocument();
+  });
 });
