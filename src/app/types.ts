@@ -4,3 +4,5 @@ export interface ToDo {
   completed: boolean;
   userId?: number;
 }
+
+export type Filter = "ALL" | "COMPLETED" | "UNFINISHED";
