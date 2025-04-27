@@ -1,9 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Filter, ToDo } from "./types";
 import { ToDoElement } from "./components/ToDoElement";
-import { useEffect, useState } from "react";
 import { Filtering } from "./components/Filtering";
 
 const API_URL = "https://jsonplaceholder.typicode.com/todos";
@@ -41,21 +41,24 @@ export default function Home() {
     return true;
   });
 
+  if (error) {
+    return (
+      <div className="text-red-800 font-bold">Failed to fetch the data.</div>
+    );
+  }
+
+  if (isLoading) {
+    return <div>Loading data...</div>;
+  }
+
   return (
-    <div>
-      <header className="text-center">
-        <h1 className="text-4xl my-8">ToDo List</h1>
-      </header>
-      <main className="flex justify-center">
-        <div className="w-[500px]">
-          <Filtering filter={filter} setFilter={setFilter} />
-          <div className="flex flex-col items-start">
-            {filteredTodos?.map((toDo) => (
-              <ToDoElement key={toDo.id} toDo={toDo} setToDos={setToDos} />
-            ))}
-          </div>
-        </div>
-      </main>
-    </div>
+    <>
+      <Filtering filter={filter} setFilter={setFilter} />
+      <div className="flex flex-col items-start pb-12">
+        {filteredTodos?.map((toDo) => (
+          <ToDoElement key={toDo.id} toDo={toDo} setToDos={setToDos} />
+        ))}
+      </div>
+    </>
   );
 }

@@ -13,9 +13,9 @@ export const Filtering = ({ filter, setFilter }: Props) => {
   };
 
   return (
-    <div className="mb-4">
+    <div className="flex justify-end mb-4">
       <select
-        className="border rounded px-3 py-2"
+        className="border rounded px-3 py-2 w-full sm:w-auto"
         defaultValue={filter}
         onChange={handleChange}
       >
