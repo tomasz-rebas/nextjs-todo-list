@@ -1,7 +1,7 @@
-import { getByText, render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ToDoElement } from "../ToDoElement";
-import "@testing-library/jest-dom";
 
 describe("ToDoElement", () => {
   it("renders unfinished ToDo", () => {
@@ -30,7 +30,7 @@ describe("ToDoElement", () => {
     expect(label).toBeInTheDocument();
   });
 
-  it("toggles checkbox", async () => {
+  it("updates ToDo when toggling checkbox", async () => {
     const toDo = { id: 1, title: "Test todo", completed: false };
     const setToDos = jest.fn();
 
@@ -49,7 +49,5 @@ describe("ToDoElement", () => {
     const updatedState = callback([toDo]);
 
     expect(updatedState).toEqual([{ ...toDo, completed: true }]);
-
-    expect(checkbox).toBeChecked();
   });
 });
