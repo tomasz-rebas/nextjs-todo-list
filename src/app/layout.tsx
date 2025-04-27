@@ -1,4 +1,3 @@
-import { Providers } from "./providers";
 import "./globals.css";
 
 export default function RootLayout({
@@ -13,9 +12,7 @@ export default function RootLayout({
           <h1 className="text-4xl my-8">ToDo List</h1>
         </header>
         <main className="flex justify-center px-4">
-          <div className="w-full sm:w-[500px]">
-            <Providers>{children}</Providers>
-          </div>
+          <div className="w-full sm:w-[500px]">{children}</div>
         </main>
       </body>
     </html>

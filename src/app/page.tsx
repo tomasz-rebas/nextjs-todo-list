@@ -1,25 +1,25 @@
-import { fetchData } from "./lib/fetchData";
 import { ToDoList } from "./components/ToDoList";
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
 import { ToDo } from "./types";
 
+const API_URL = "https://jsonplaceholder.typicode.com/todos";
+
 export default async function Home() {
-  const queryClient = new QueryClient();
+  let initialData: ToDo[] = [];
+  let error: string | null = null;
 
-  await queryClient.prefetchQuery({
-    queryKey: ["toDos"],
-    queryFn: fetchData,
-  });
+  try {
+    const response = await fetch(API_URL);
 
-  const initialData = queryClient.getQueryData<ToDo[]>(["toDos"]);
+    if (!response.ok) {
+      throw new Error("Failed to fetch");
+    }
 
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ToDoList initialData={initialData} />
-    </HydrationBoundary>
-  );
+    const data: ToDo[] = await response.json();
+    initialData = data.map(({ userId, ...rest }) => rest);
+  } catch (err) {
+    console.error(err);
+    error = "Failed to fetch the data.";
+  }
+
+  return <ToDoList initialData={initialData} error={error} />;
 }

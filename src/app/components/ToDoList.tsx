@@ -1,32 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { Filter, ToDo } from "../types";
 import { ToDoElement } from "./ToDoElement";
 import { Filtering } from "./Filtering";
-import { fetchData } from "../lib/fetchData";
 
 interface Props {
-  initialData?: ToDo[];
+  initialData: ToDo[];
+  error: string | null;
 }
 
-export const ToDoList = ({ initialData }: Props) => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["toDos"],
-    queryFn: fetchData,
-    initialData,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  });
-
-  const [toDos, setToDos] = useState<ToDo[]>([]);
+export const ToDoList = ({ initialData, error }: Props) => {
+  const [toDos, setToDos] = useState<ToDo[]>(initialData);
   const [filter, setFilter] = useState<Filter>("All");
-
-  useEffect(() => {
-    if (data) {
-      setToDos(data);
-    }
-  }, [data]);
 
   const filteredTodos = toDos.filter((element) => {
     if (filter === "Completed") return element.completed;
@@ -34,14 +20,8 @@ export const ToDoList = ({ initialData }: Props) => {
     return true;
   });
 
-  if (isLoading) {
-    return <div>Fetching data...</div>;
-  }
-
   if (error) {
-    return (
-      <div className="text-red-800 font-bold">Failed to fetch the data.</div>
-    );
+    return <div className="text-red-800 font-bold">{error}</div>;
   }
 
   return (

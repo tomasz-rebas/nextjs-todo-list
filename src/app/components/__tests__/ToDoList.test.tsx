@@ -1,7 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { ToDoList } from "../ToDoList";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToDo } from "../../types";
 
 const mockToDos: ToDo[] = [
@@ -12,17 +11,9 @@ const mockToDos: ToDo[] = [
   { id: 5, title: "Task 5", completed: true },
 ];
 
-const renderWithQueryClient = (ui: React.ReactElement) => {
-  const queryClient = new QueryClient();
-
-  return render(
-    <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
-  );
-};
-
 describe("ToDoList", () => {
-  it("filters displayed ToTos when changing the filter", () => {
-    renderWithQueryClient(<ToDoList initialData={mockToDos} />);
+  it("filters displayed ToDos when changing the filter", () => {
+    render(<ToDoList initialData={mockToDos} error={null} />);
 
     expect(screen.getByText("Task 1")).toBeInTheDocument();
     expect(screen.getByText("Task 2")).toBeInTheDocument();
@@ -46,5 +37,19 @@ describe("ToDoList", () => {
     expect(screen.getByText("Task 3")).toBeInTheDocument();
     expect(screen.getByText("Task 4")).toBeInTheDocument();
     expect(screen.queryByText("Task 5")).not.toBeInTheDocument();
+  });
+
+  it("shows error when fetch fails", () => {
+    render(
+      <ToDoList initialData={mockToDos} error="Failed to fetch the data." />
+    );
+
+    expect(screen.queryByText("Task 1")).not.toBeInTheDocument();
+    expect(screen.queryByText("Task 2")).not.toBeInTheDocument();
+    expect(screen.queryByText("Task 3")).not.toBeInTheDocument();
+    expect(screen.queryByText("Task 4")).not.toBeInTheDocument();
+    expect(screen.queryByText("Task 5")).not.toBeInTheDocument();
+
+    expect(screen.getByText("Failed to fetch the data.")).toBeInTheDocument();
   });
 });
