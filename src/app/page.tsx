@@ -12,11 +12,11 @@ export default async function Home() {
     }
 
     const data: ToDo[] = await response.json();
-    const initialData = data.map(({ userId, ...rest }) => rest);
+    const filteredData = data.map(({ userId, ...rest }) => rest);
 
-    return <ToDoList initialData={initialData} error={null} />;
+    return <ToDoList data={filteredData} error={null} />;
   } catch (err) {
     console.error(err);
-    return <ToDoList initialData={[]} error="Failed to fetch the data." />;
+    return <ToDoList data={[]} error="Failed to fetch the data." />;
   }
 }

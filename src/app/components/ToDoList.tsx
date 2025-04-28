@@ -6,12 +6,12 @@ import { ToDoElement } from "./ToDoElement";
 import { Filtering } from "./Filtering";
 
 interface Props {
-  initialData: ToDo[];
+  data: ToDo[];
   error: string | null;
 }
 
-export const ToDoList = ({ initialData, error }: Props) => {
-  const [toDos, setToDos] = useState<ToDo[]>(initialData);
+export const ToDoList = ({ data, error }: Props) => {
+  const [toDos, setToDos] = useState<ToDo[]>(data);
   const [filter, setFilter] = useState<Filter>("All");
 
   const filteredTodos = toDos.filter((element) => {
@@ -24,7 +24,7 @@ export const ToDoList = ({ initialData, error }: Props) => {
     return <p className="text-red-800 font-bold text-center">{error}</p>;
   }
 
-  if (initialData.length === 0 && !error) {
+  if (data.length === 0 && !error) {
     return <p className="text-center">No tasks available.</p>;
   }
 

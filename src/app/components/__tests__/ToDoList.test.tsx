@@ -13,7 +13,7 @@ const mockToDos: ToDo[] = [
 
 describe("ToDoList", () => {
   it("filters displayed ToDos when changing the filter", () => {
-    render(<ToDoList initialData={mockToDos} error={null} />);
+    render(<ToDoList data={mockToDos} error={null} />);
 
     expect(screen.getByText("Task 1")).toBeInTheDocument();
     expect(screen.getByText("Task 2")).toBeInTheDocument();
@@ -40,9 +40,7 @@ describe("ToDoList", () => {
   });
 
   it("shows error when fetch fails", () => {
-    render(
-      <ToDoList initialData={mockToDos} error="Failed to fetch the data." />
-    );
+    render(<ToDoList data={mockToDos} error="Failed to fetch the data." />);
 
     expect(screen.queryByText("Task 1")).not.toBeInTheDocument();
     expect(screen.queryByText("Task 2")).not.toBeInTheDocument();
@@ -54,7 +52,7 @@ describe("ToDoList", () => {
   });
 
   it("shows message when no tasks available (empty array)", () => {
-    render(<ToDoList initialData={[]} error={null} />);
+    render(<ToDoList data={[]} error={null} />);
 
     expect(screen.getByText("No tasks available.")).toBeInTheDocument();
   });
