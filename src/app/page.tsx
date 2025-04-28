@@ -1,5 +1,5 @@
-import { ToDoList } from "./components/ToDoList";
 import { ToDo } from "./types";
+import ToDoList from "./components/ToDoList";
 
 const API_URL = "https://jsonplaceholder.typicode.com/todos";
 
@@ -12,6 +12,8 @@ export default async function Home() {
     }
 
     const data: ToDo[] = await response.json();
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const filteredData = data.map(({ userId, ...rest }) => rest);
 
     return <ToDoList data={filteredData} error={null} />;

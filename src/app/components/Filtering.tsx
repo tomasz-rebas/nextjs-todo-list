@@ -6,7 +6,7 @@ interface Props {
   setFilter: Dispatch<SetStateAction<Filter>>;
 }
 
-export const Filtering = ({ filter, setFilter }: Props) => {
+export default function Filtering({ filter, setFilter }: Props) {
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setFilter(e.target.value as Filter);
   };
@@ -25,4 +25,4 @@ export const Filtering = ({ filter, setFilter }: Props) => {
       </select>
     </div>
   );
-};
+}

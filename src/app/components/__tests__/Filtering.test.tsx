@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { Filtering } from "../Filtering";
+import Filtering from "../Filtering";
 
 describe("Filtering", () => {
   it("renders the dropdown with the correct initial value", () => {

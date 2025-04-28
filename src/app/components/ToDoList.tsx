@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import { Filter, ToDo } from "../types";
-import { ToDoElement } from "./ToDoElement";
-import { Filtering } from "./Filtering";
+import Filtering from "./Filtering";
+import ToDoElement from "./ToDoElement";
 
 interface Props {
   data: ToDo[];
   error: string | null;
 }
 
-export const ToDoList = ({ data, error }: Props) => {
+export default function ToDoList({ data, error }: Props) {
   const [toDos, setToDos] = useState<ToDo[]>(data);
   const [filter, setFilter] = useState<Filter>("All");
 
@@ -38,4 +38,4 @@ export const ToDoList = ({ data, error }: Props) => {
       </div>
     </>
   );
-};
+}

@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { ToDoList } from "../ToDoList";
 import { ToDo } from "../../types";
+import ToDoList from "../ToDoList";
 
 const mockToDos: ToDo[] = [
   { id: 1, title: "Task 1", completed: false },
